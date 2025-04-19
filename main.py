@@ -8,3 +8,5 @@ import os
 import sqlite3
 
 
+logger = ResultsLogger()
+logger.view_results()
