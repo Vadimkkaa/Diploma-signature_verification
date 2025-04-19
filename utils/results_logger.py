@@ -75,3 +75,14 @@ class ResultsLogger:
                     f"      → TP: {tp} | FP: {fp} | FN: {fn} | TN: {tn} | ⏱ {timestamp}\n"
                     + "-" * 90
                 )
+
+    def delete_all(self):
+        """
+        Полностью очищает таблицу результатов и сбрасывает счётчик автоинкремента ID.
+        """
+        with sqlite3.connect(self.db_path) as conn:
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM test_results")
+            cursor.execute("DELETE FROM sqlite_sequence WHERE name='test_results'")
+            conn.commit()
+            print("🧹 Все записи удалены, счётчик ID сброшен.")
